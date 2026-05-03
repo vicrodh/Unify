@@ -359,8 +359,18 @@ Item {
         var profileToUse = root.webProfile;
         var userAgent = root.webProfile ? root.webProfile.httpUserAgent : "";
         var isolationType = "shared";
-        
-        if (serviceData.isolatedProfile) {
+
+        // Qt sets the user-agent per WebEngineProfile, not per WebEngineView,
+        // so a non-empty per-service UA override implies the service must run
+        // on its own profile. Treat a custom UA as an implicit request for
+        // service-level isolation in addition to the explicit checkbox.
+        var hasCustomUserAgent = !!(serviceData.userAgent && serviceData.userAgent.length > 0);
+        var needsIsolatedProfile = serviceData.isolatedProfile || hasCustomUserAgent;
+        if (hasCustomUserAgent) {
+            userAgent = serviceData.userAgent;
+        }
+
+        if (needsIsolatedProfile) {
             // Service-level isolation takes priority
             profileToUse = getOrCreateIsolatedProfile(serviceData.id, userAgent);
             isolationType = "service-isolated";

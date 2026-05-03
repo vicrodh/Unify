@@ -78,6 +78,7 @@ Kirigami.Dialog {
         root.useFavicon = service.useFavicon || false;
         root.isolatedProfile = service.isolatedProfile || false;
         root.selectedFaviconSource = service.faviconSource || 0;
+        customUserAgentField.text = service.userAgent || "";
 
         // Fetch favicon previews if URL is valid
         if (service.url) {
@@ -108,6 +109,7 @@ Kirigami.Dialog {
         root.selectedIconName = "internet-web-browser-symbolic";
         root.useFavicon = true;
         root.isolatedProfile = false;
+        customUserAgentField.text = "";
     }
 
     function fetchFaviconPreviews() {
@@ -176,7 +178,8 @@ Kirigami.Dialog {
             useFavicon: root.useFavicon,
             isolatedProfile: root.isolatedProfile,
             faviconSource: root.useFavicon ? root.selectedFaviconSource : -1,
-            querySelector: querySelectorField.text.trim()
+            querySelector: querySelectorField.text.trim(),
+            userAgent: customUserAgentField.text.trim()
         };
         acceptedData(data);
         clearFields();
@@ -435,6 +438,15 @@ Kirigami.Dialog {
             enabled: !root.isEditMode
             Controls.ToolTip.visible: hovered
             Controls.ToolTip.text: root.isEditMode ? i18n("This option cannot be changed after the service is created. Delete and recreate the service if you need to change this setting.") : i18n("When enabled, this service will have its own separate cookies, login sessions, and data. Useful for having multiple accounts of the same service.")
+        }
+
+        Controls.TextField {
+            id: customUserAgentField
+            Kirigami.FormData.label: i18n("Custom User Agent:")
+            placeholderText: i18n("Leave empty to use the application default")
+            Layout.fillWidth: true
+            Controls.ToolTip.visible: hovered
+            Controls.ToolTip.text: i18n("Overrides the user-agent string sent by this service. Useful for sites that gate features by browser detection (for example Slack huddles only allow Chrome). Setting a custom user-agent gives this service its own isolated storage (existing logins on the shared profile may need to be done again).")
         }
 
         Controls.TextField {

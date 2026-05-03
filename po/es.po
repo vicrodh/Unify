@@ -252,6 +252,21 @@ msgstr "Espacio de trabajo:"
 msgid "Delete Service"
 msgstr "Borrar servicio"
 
+#: src/qml/dialogs/ServiceDialog.qml:445
+#, kde-format
+msgid "Custom User Agent:"
+msgstr "User-Agent personalizado:"
+
+#: src/qml/dialogs/ServiceDialog.qml:446
+#, kde-format
+msgid "Leave empty to use the application default"
+msgstr "Déjalo vacío para usar el predeterminado de la aplicación"
+
+#: src/qml/dialogs/ServiceDialog.qml:453
+#, kde-format
+msgid "Overrides the user-agent string sent by this service. Useful for sites that gate features by browser detection (for example Slack huddles only allow Chrome). Requires isolated storage."
+msgstr "Sustituye el User-Agent que envía este servicio. Útil para sitios que filtran funciones por detección del navegador (por ejemplo, los huddles de Slack solo permiten Chrome). Requiere almacenamiento aislado."
+
 #: src/qml/dialogs/ServiceDialog.qml:167
 #, kde-format
 msgid ""
