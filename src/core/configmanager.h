@@ -26,6 +26,7 @@ class ConfigManager : public QObject
     Q_PROPERTY(bool systemTrayEnabled READ systemTrayEnabled WRITE setSystemTrayEnabled NOTIFY systemTrayEnabledChanged)
     Q_PROPERTY(bool showZoomInHeader READ showZoomInHeader WRITE setShowZoomInHeader NOTIFY showZoomInHeaderChanged)
     Q_PROPERTY(QString sidebarSizePreset READ sidebarSizePreset WRITE setSidebarSizePreset NOTIFY sidebarSizePresetChanged)
+    Q_PROPERTY(bool hideHeader READ hideHeader WRITE setHideHeader NOTIFY hideHeaderChanged)
 
 public:
     explicit ConfigManager(QObject *parent = nullptr);
@@ -97,6 +98,10 @@ public:
     QString sidebarSizePreset() const;
     void setSidebarSizePreset(const QString &preset);
 
+    // Hide the application header (Kirigami page toolbar). Toggleable via Ctrl+H.
+    bool hideHeader() const;
+    void setHideHeader(bool enabled);
+
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE void loadSettings();
 
@@ -135,6 +140,7 @@ Q_SIGNALS:
     void systemTrayEnabledChanged();
     void showZoomInHeaderChanged();
     void sidebarSizePresetChanged();
+    void hideHeaderChanged();
 
 private:
     void updateWorkspacesList();
@@ -156,6 +162,7 @@ private:
     bool m_systemTrayEnabled = true;
     bool m_showZoomInHeader = true;
     QString m_sidebarSizePreset = QStringLiteral("normal");
+    bool m_hideHeader = false;
 };
 
 #endif // CONFIGMANAGER_H
