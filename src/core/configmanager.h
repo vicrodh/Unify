@@ -27,6 +27,7 @@ class ConfigManager : public QObject
     Q_PROPERTY(bool showZoomInHeader READ showZoomInHeader WRITE setShowZoomInHeader NOTIFY showZoomInHeaderChanged)
     Q_PROPERTY(QString sidebarSizePreset READ sidebarSizePreset WRITE setSidebarSizePreset NOTIFY sidebarSizePresetChanged)
     Q_PROPERTY(bool hideHeader READ hideHeader WRITE setHideHeader NOTIFY hideHeaderChanged)
+    Q_PROPERTY(bool autostartEnabled READ autostartEnabled WRITE setAutostartEnabled NOTIFY autostartEnabledChanged)
 
 public:
     explicit ConfigManager(QObject *parent = nullptr);
@@ -102,6 +103,13 @@ public:
     bool hideHeader() const;
     void setHideHeader(bool enabled);
 
+    // Autostart: registers Unify with the org.freedesktop.portal.Background
+    // portal so the desktop session launches it on login. The portal works
+    // inside Flatpak and on native installs alike. State is mirrored in
+    // QSettings since the portal exposes no GetStatus method.
+    bool autostartEnabled() const;
+    void setAutostartEnabled(bool enabled);
+
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE void loadSettings();
 
@@ -141,6 +149,7 @@ Q_SIGNALS:
     void showZoomInHeaderChanged();
     void sidebarSizePresetChanged();
     void hideHeaderChanged();
+    void autostartEnabledChanged();
 
 private:
     void updateWorkspacesList();
@@ -163,6 +172,7 @@ private:
     bool m_showZoomInHeader = true;
     QString m_sidebarSizePreset = QStringLiteral("normal");
     bool m_hideHeader = false;
+    bool m_autostartEnabled = false;
 };
 
 #endif // CONFIGMANAGER_H

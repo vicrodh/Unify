@@ -356,6 +356,11 @@ msgstr "Grande"
 msgid "Hide Header (Ctrl+H)"
 msgstr "Ocultar cabecera (Ctrl+H)"
 
+#: src/qml/drawers/WorkspaceDrawer.qml:170
+#, kde-format
+msgid "Launch on System Start"
+msgstr "Iniciar al arrancar el sistema"
+
 #: src/trayiconmanager.cpp:57
 #, kde-format
 msgid "Show Unify"
