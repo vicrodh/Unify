@@ -38,6 +38,11 @@ WebEngineView {
     settings.screenCaptureEnabled: true
     settings.webRTCPublicInterfacesOnly: false
     settings.javascriptCanAccessClipboard: true
+    // Required in addition to javascriptCanAccessClipboard for web apps that
+    // paste via document.execCommand("paste") — e.g. WhatsApp Web's image
+    // paste handler. Without it, paste events fire but image MIME types are
+    // stripped from clipboardData.
+    settings.javascriptCanPaste: true
     settings.allowWindowActivationFromJavaScript: true
     settings.showScrollBars: false
     settings.javascriptEnabled: true
